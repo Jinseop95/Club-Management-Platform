@@ -4,7 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%-- <%@page import="exam.jdbc.JDBC_clubDAO"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -24,31 +24,37 @@
       }
    %>
 
-		<div id="header">
-			<h1>
-				<a href="index.jsp"><img src="image/logo.gif" alt="한림대학교 동아리"></a>
-			</h1>
-			<a href="#content" class="skip">본문 바로가기</a>
+	<div id="header">
+		<h1>
+			<a href="index.jsp"><img src="image/logo.gif" alt="한림대학교 동아리"></a>
+		</h1>
+		<a href="#content" class="skip">본문 바로가기</a>
 
-			<%if (username == null) {%>
-			<ul id="snb">
-				<li><a href="login.jsp">로그인</a></li>
-				<li><a href="index.html">회원가입</a></li>
-			</ul>
-			<%}else{ %>
-				<ul id="snb">
-					<li><span class="txt"><%out.print((String) session.getAttribute("username") + " 님 환영합니다.");%></span></li>
-					<li><a href='logoutAction.jsp'>로그아웃</a></li>
-				</ul>
+		<%if (username == null) {%>
+		<ul id="snb">
+			<li><a href="login.jsp">로그인</a></li>
+			<li><a href="index.jsp">회원가입</a></li>
+		</ul>
+		<%}else{ %>
+		<ul id="snb">
+			<li><span class="txt">
+					<%out.print((String) session.getAttribute("username") + " 님 환영합니다.");%>
+			</span></li>
+			<li><a href='logoutAction.jsp'>로그아웃</a></li>
+			<%if (username.equals("admin")){ %>
+			<li><a href="#"
+				onclick='window.open("createClub.jsp", "a", "width=780, height=575, left=125, top=50");'>동아리 등록</a></li>
 			<%} %>
+		</ul>
+		<%} %>
 
-			<ul id="gnb">
-				<li><a href="club_search.jsp">동아리조회</a></li>
-				<li><a href="top_club.jsp">우수동아리</a></li>
-				<li><a href="board.jsp">공지사항</a></li>
-				<li><a href="jido.jsp">주변음식점</a></li>
-			</ul>
-		</div>
+		<ul id="gnb">
+			<li><a href="club_search.jsp">동아리조회</a></li>
+			<li><a href="top_club.jsp">우수동아리</a></li>
+			<li><a href="board.jsp">공지사항</a></li>
+			<li><a href="jido.jsp">주변음식점</a></li>
+		</ul>
+	</div>
 
 </body>
 </html>

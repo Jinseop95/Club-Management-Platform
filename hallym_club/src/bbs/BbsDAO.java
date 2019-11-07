@@ -284,7 +284,7 @@ public class BbsDAO {
 
 	}
 
-	public Bbs getBbs(int BOARD_NO, String BOARD_CD) {
+	public Bbs getBbs(int BOARD_NO) {
 
 		int i = cnt_update(BOARD_NO);
 
@@ -293,19 +293,15 @@ public class BbsDAO {
 		try {
 
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-
 			pstmt.setInt(1, BOARD_NO);
-
 			rs = pstmt.executeQuery();
-
-			// rs2=pstmt2.executeQuery();
 
 			if (rs.next()) {
 				Bbs bbs = new Bbs();
 				int hit = rs.getInt(6);
 				bbs.setClub_id(rs.getInt(1));
 				bbs.setBOARD_NO(rs.getInt(2));	
-				bbs.setBoard_cd(BOARD_CD);
+				bbs.setBoard_cd(rs.getString(3));
 				bbs.setTITLE(rs.getString(4));
 				bbs.setCONTENTS(rs.getString(5));
 				bbs.setOPEN_CNT(hit);
@@ -315,13 +311,10 @@ public class BbsDAO {
 				bbs.setStart_date(rs.getString(14));
 				bbs.setEnd_date(rs.getString(15));
 				return bbs;
-
 			}
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		} finally {
 			db_close();
 		}
