@@ -17,7 +17,6 @@
 
 	<%
 		request.setCharacterEncoding("UTF-8");
-
 		String username = null;
 		if (session.getAttribute("username") != null) {
 			username = (String) session.getAttribute("username");
@@ -106,32 +105,28 @@
 								<img class="logo" src="image/poster/<%=vo.getIntro_file_nm()%>"
 									onerror="this.src='image/error.png'" alt="">
 
-							</div> <jsp:useBean id="dao" class="exam.jdbc.JDBC_clubDAO" /> <%
- 	String star_state = dao.getStar(vo.getClub_id(), username);
- %>
+							</div> <jsp:useBean id="dao" class="exam.jdbc.JDBC_clubDAO" /> <%String star_state = dao.getStar(vo.getClub_id(), username);%>
 							<div class="tit">
-								<a href="club_search.jsp?search=<%=vo.getClub_nm()%>"><%=vo.getClub_nm()%></a>
-
-								<%
-									if (star_state.equals("Y")) {
-								%>
+								<%-- <a href="club_search.jsp?search=<%=vo.getClub_nm()%>"><%=vo.getClub_nm()%></a> --%>
+								<a href="club_intro.jsp?club_id=<%=vo.getClub_id()%>"><%=vo.getClub_nm()%></a>
+								<!--여기-->
+								<%if (star_state.equals("Y")) { %>
 								<button type="button" class="star-btn"
 									onclick="location.href='likeAction.jsp?club_id=<%=vo.getClub_id()%>&state=1'">
 									<img src="image/star1.png" width="23" height="23">
 								</button>
 								<%
-									} else if (star_state.equals("N")) {
-								%>
+							} else if (star_state.equals("N")) {
+							%>
 								<button type="button" class="star-btn"
 									onclick="location.href='likeAction.jsp?club_id=<%=vo.getClub_id()%>&state=0'">
 									<img src="image/star0.png" width="23" height="23">
 								</button>
 								<%
-									}
-								%>
+							}%>
 
 							</div>
-							<div class="note"><%=vo.getStaff_cd()%></div>
+							<div class="note"><%=vo.getStaff_cd() %></div>
 							<div class="tag">
 								#<%=vo.getClub_gb_cd()%>
 								#<%=vo.getClub_at_cd()%></div>

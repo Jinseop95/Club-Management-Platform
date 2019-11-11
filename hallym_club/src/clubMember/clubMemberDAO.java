@@ -493,9 +493,9 @@ public class clubMemberDAO {
 		
 	}
 	
-	public String[] getUserForm(String username,String clubNM) {
+	public String[] getUserForm(String username,int club_id) {
 		
-		String SQL = "SELECT NM,MAJOR,GRADE,GENDER_CD,PHONE_NO,ADDRESS,EMAIL,BIRTH_DT,plan,hope from club_member where STUDENT_ID="+username+" AND CLUB_ID=( SELECT CLUB_ID from club where CLUB_NM ='"+clubNM+"')";
+		String SQL = "SELECT NM,MAJOR,GRADE,GENDER_CD,PHONE_NO,ADDRESS,EMAIL,BIRTH_DT,plan,hope from club_member where STUDENT_ID="+username+" AND CLUB_ID="+club_id;
 		
 		String myInfo[] = new String[10];
 		
@@ -552,8 +552,8 @@ public class clubMemberDAO {
 	return -1;//오류
 	}
 	
-	public int overlapCheck(String username, int club_id ) {
-	      String SQL = "SELECT JOIN_CD FROM club_member where STUDENT_ID='"+username+"' AND CLUB_ID= " +club_id;
+	public int overlapCheck(String username,String clubNM ) {
+	      String SQL = "SELECT JOIN_CD FROM club_member where STUDENT_ID="+username+" AND CLUB_ID=( SELECT CLUB_ID from club where CLUB_NM ='"+clubNM+"')";
 
 	      try {
 	         PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(SQL);
@@ -683,8 +683,8 @@ public class clubMemberDAO {
 		         return answer;//디비 오류
 		      }
 		   
-		   public int getJoin_cd(String username,String clubNM) {
-		       String SQL = "SELECT STAFF_CD FROM club_member where STUDENT_ID="+username+" AND CLUB_ID=( SELECT CLUB_ID from club where CLUB_NM ='"+clubNM+"')";
+		   public int getJoin_cd(String username,int club_id) {
+		       String SQL = "SELECT STAFF_CD FROM club_member where STUDENT_ID="+username+" AND CLUB_ID="+club_id;
 
 		       try {
 			         PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(SQL);

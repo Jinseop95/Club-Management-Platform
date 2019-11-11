@@ -17,8 +17,9 @@ public class ClubVO {
 	private String input_id;
 	private String input_ip;
 	private String input_date;
+	private String poster_file_nm;
+	private String poster_save_file_nm;
 	private int row_count;
-	private int prefer;
 	private String staff_cd;
 	private String staff_nm;
 	private String staff_phone;
@@ -48,14 +49,6 @@ public class ClubVO {
 
 	public void setStaff_nm(String staff_nm) {
 		this.staff_nm = staff_nm;
-	}
-
-	public int getPrefer() {
-		return prefer;
-	}
-
-	public void setPrefer(int prefer) {
-		this.prefer = prefer;
 	}
 
 	public String getStaff_cd() {
@@ -184,6 +177,22 @@ public class ClubVO {
 
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;
+	}
+
+	public String getPoster_file_nm() {
+		return poster_file_nm;
+	}
+
+	public void setPoster_file_nm(String poster_file_nm) {
+		this.poster_file_nm = poster_file_nm;
+	}
+
+	public String getPoster_save_file_nm() {
+		return poster_save_file_nm;
+	}
+
+	public void setPoster_save_file_nm(String poster_save_file_nm) {
+		this.poster_save_file_nm = poster_save_file_nm;
 	}
 
 	public int getRow_count() {

@@ -108,13 +108,14 @@ public class JDBC_clubDAO {
 	            vo.setOpen_dt(rs.getString(9));
 	            vo.setIntro_cont(rs.getString(10));
 	            vo.setIntro_file_nm(rs.getString(11));
-	            vo.setIntro_file_path(rs.getString(12));
+	            vo.setIntro_save_file_nm(rs.getString(13));
 	            vo.setInput_id(rs.getString(14));
 	            vo.setInput_ip(rs.getString(15));
 	            vo.setInput_date(rs.getString(16));
-	            vo.setPrefer(rs.getInt(20));
-	            vo.setStaff_nm(rs.getString(21));
-	            vo.setStaff_phone(rs.getString(22));
+	            vo.setPoster_file_nm(rs.getString(20));
+	            vo.setPoster_save_file_nm(rs.getString(21));
+	            vo.setStaff_nm(rs.getString(22));
+	            vo.setStaff_phone(rs.getString(23));
 	            vo.setRow_count(row_count);
 	            list.add(vo);
 	         }
@@ -153,7 +154,7 @@ public class JDBC_clubDAO {
 	               + "LEFT JOIN CLUB_MEMBER AS B " + "ON A.CLUB_ID = B.CLUB_ID "
 	               + "WHERE A.CLUB_GB_CD LIKE ? AND A.CLUB_AT_CD LIKE ?"
 	               + "ORDER BY B.STAFF_CD IS NULL ASC, STAFF_CD ASC)X "
-	               + "GROUP BY CLUB_ID ORDER BY PREFER DESC, CLUB_CNT DESC LIMIT " + limit_cnt;
+	               + "GROUP BY CLUB_ID ORDER BY CLUB_CNT DESC LIMIT " + limit_cnt;
 
 	         
 	                  
@@ -181,9 +182,10 @@ public class JDBC_clubDAO {
 	            vo.setInput_id(rs.getString(14));
 	            vo.setInput_ip(rs.getString(15));
 	            vo.setInput_date(rs.getString(16));
-	            vo.setPrefer(rs.getInt(20));
-	            vo.setStaff_nm(rs.getString(21));
-	            vo.setStaff_phone(rs.getString(22));
+	            vo.setPoster_file_nm(rs.getString(20));
+	            vo.setPoster_save_file_nm(rs.getString(21));
+	            vo.setStaff_nm(rs.getString(22));
+	            vo.setStaff_phone(rs.getString(23));
 	            list.add(vo);
 	         }
 
@@ -255,105 +257,34 @@ public class JDBC_clubDAO {
 		return clubList;
 	}
 
-	public int addsub_prefer(int club_id, String state) {
-		String SQL = "";
+	
 
-		if (state.equals("0")) {
-			SQL = "UPDATE club SET prefer=prefer+1 where club_id=" + club_id;
-		}
 
-		else
-			SQL = "UPDATE club SET prefer=prefer-1 where club_id=" + club_id;
-
-		try {
-
-			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(SQL);
-			pstmt.executeUpdate();
-
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			db_close();
-		}
-
-		return -1;
-	}
-
-	public String[] recommend_dong(String AT_CD) {
-
-		String[] recommend = new String[3];
-		String SQL = "select club_nm from club where CLUB_AT_CD=" + AT_CD + " order by prefer desc limit 3;";
-		ResultSet rs = null;
-		int i = 0;
-		try {
-			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(SQL);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				recommend[i] = rs.getString(1);
-				i++;
-			}
-
-			if (i != 3)
-				return null;
-
-			return recommend;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			db_close();
-		}
-
-		return null;
-	}
-
-	public int createClub(ClubVO CV, String student_id, String fileName, String fileSaveName) {
+	public int createClub(ClubVO CV, String student_id) {
 
 		String SQL = "INSERT INTO club(CLUB_ID, CLUB_NM, CLUB_GB_CD, CLUB_AT_CD, CLUB_CNT, CLUB_AIM, CLUB_ACTIVE, CLUB_ROOM, "
-				+ "OPEN_DT, INTRO_FILE_NM, INTRO_SAVE_FILE_NM, PREFER) VALUES((SELECT ifnull(MAX(CLUB_ID),0)+1 FROM CLUB AS C),?,?,?,?,?,?,?,?,?,?,0)";
+				+ "OPEN_DT, INTRO_FILE_NM, INTRO_SAVE_FILE_NM, POSTER_FILE_NM, POSTER_SAVE_FILE_NM) VALUES((SELECT ifnull(MAX(CLUB_ID),0)+1 FROM CLUB AS C),?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		String SQL2 = "INSERT INTO CLUB_MEMBER(CLUB_ID, STUDENT_ID, STAFF_CD, JOIN_DT, JOIN_CD) VALUES "
 				+ "((SELECT ifnull(MAX(CLUB_ID),0) FROM CLUB AS C),?,'004001',?,'008001')";
 		try {
-
-			if (CV.getClub_aim() == null) {
-				CV.setClub_aim("");
-			}
-			if (CV.getClub_active() == null) {
-				CV.setClub_active("");
-			}
-			if (CV.getClub_room() == null) {
-				CV.setClub_room("");
-			}
-			if (CV.getOpen_dt() == null) {
-				CV.setOpen_dt("");
-			}
-			
-			if(fileName == null){
-				fileName = "";
-			}
-			if(fileSaveName == null){
-				fileSaveName = "";
-			}
-
 			PreparedStatement pstmt = con.prepareStatement(SQL);
 			
 			pstmt.setString(1, CV.getClub_nm());
 			pstmt.setString(2, CV.getClub_gb_cd());
 			pstmt.setString(3, CV.getClub_at_cd());
-			pstmt.setInt(4,1);
+			pstmt.setInt(4,CV.getCnt());
 			pstmt.setString(5, CV.getClub_aim());
 			pstmt.setString(6, CV.getClub_active());
 			pstmt.setString(7, CV.getClub_room());
 			pstmt.setString(8, CV.getOpen_dt());
-			pstmt.setString(9, fileName);
-			pstmt.setString(10, fileSaveName);
+			pstmt.setString(9, CV.getIntro_file_nm());
+			pstmt.setString(10, CV.getIntro_save_file_nm());
+			pstmt.setString(11, CV.getPoster_file_nm());
+			pstmt.setString(12, CV.getPoster_save_file_nm());
 			
-			System.out.println("여기"+ pstmt);
 		    pstmt.executeUpdate();
-			
-			
+	
 			pstmt = con.prepareStatement(SQL2);
 				
 			pstmt.setString(1, student_id);
@@ -377,8 +308,8 @@ public class JDBC_clubDAO {
 	}
 	
 
-	public String getIntro_FilePath(String clubNM) {
-		String SQL = "select INTRO_FILE_PATH from club where CLUB_NM='" + clubNM + "'";
+	public String getIntro_FilePath(int club_id) {
+		String SQL = "select INTRO_FILE_PATH from club where CLUB_ID="+club_id+"";
 		PreparedStatement pstmt;
 		String Intro_FilePath = "";
 
@@ -436,7 +367,7 @@ public class JDBC_clubDAO {
 	         if (student_id == "") {
 	            SQL = "SELECT C.CLUB_ID, C.CLUB_NM, C.INTRO_FILE_NM, C.CLUB_AIM, C.CLUB_ACTIVE, S.SO_NM, D.SO_NM FROM CLUB AS C "
 	                  + "JOIN SO_CD AS S ON C.CLUB_GB_CD = S.SO_CD JOIN SO_CD AS D ON C.CLUB_AT_CD = D.SO_CD "+
-	                  "ORDER BY C.PREFER DESC, C.CLUB_CNT DESC LIMIT 6";
+	                  "ORDER BY C.CLUB_CNT DESC LIMIT 6";
 
 	            pstmt = con.prepareStatement(SQL);
 

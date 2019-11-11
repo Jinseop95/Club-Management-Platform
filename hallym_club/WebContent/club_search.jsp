@@ -150,13 +150,14 @@
 			</div>
 
 			<%
+			
 				for (ClubVO vo : gb_list) {
 					String star_state = "";
 			%>
+			<!-- onerror="this.src='image/error.png'" -->
 			<div class="latest">
 				<div class="logo">
-					<img class="img" src="image/poster/<%=vo.getIntro_file_nm()%>"
-						onerror="this.src='image/error.png'"></img>
+					<img class="img" src= "upload/club/<%=vo.getIntro_save_file_nm() %>"></img>
 				</div>
 				<div class="tbl-info">
 					<h3><%=vo.getClub_nm()%></h3>
@@ -233,7 +234,7 @@
 						<li><input type="submit" value="가입 신청" class="tbl-btn"></li>
 						<li><button type="button" class="tbl-btn">더보기</button></li>
 						<li><button type="button" class="tbl-btn"
-								onclick="window.open('image/clubposter/<%=vo.getIntro_file_path()%>','new img', 'width=750,height=850')">동아리
+								onclick="window.open('upload/club/<%=vo.getPoster_save_file_nm() %>','new img', 'width=750,height=850')">동아리
 								포스터</button></li>
 					</ul>
 				</form>
