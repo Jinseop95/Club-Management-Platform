@@ -33,7 +33,9 @@
 	%>
 
 	<div id="wrap">
-		<jsp:include page="header.jsp"></jsp:include>
+		<div id="header">
+			<jsp:include page="header.jsp"></jsp:include>
+		</div>
 
 		<div id="map"></div>
 
@@ -116,10 +118,9 @@
 		</div>
 		<hr>
 		<div id="footer">
-			<div class="copyright">
-				<address>Copyright 2019. 김정인, 김진섭. All Rights Reserved.</address>
-			</div>
+			<jsp:include page="footer.jsp"></jsp:include>
 		</div>
+		<hr>
 	</div>
 
 	<script>
@@ -149,8 +150,7 @@ var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니�
  
  var tmpArr4 = new Array();
  <%for (int r = 0; r < club_internet.size(); r++) {%>
- tmpArr4[<%=r%>]='<%=club_internet.get(r)%>
-		';
+ tmpArr4[<%=r%>]='<%=club_internet.get(r)%>';
 	<%}%>
 		var ad;
 		var hi;

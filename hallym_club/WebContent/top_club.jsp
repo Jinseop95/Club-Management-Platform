@@ -37,7 +37,7 @@
 		if (session.getAttribute("username") != null) {
 			username = (String) session.getAttribute("username");
 		}
-		
+
 		String club_gb_cd = ""; //클럽 구분(중앙,과)
 		String club_at_cd = ""; //클럽 속성(학술,운동)
 		String search = "";
@@ -84,12 +84,14 @@
 		}
 	%>
 	<div id="wrap">
-		<jsp:include page="header.jsp"></jsp:include>
+		<div id="header">
+			<jsp:include page="header.jsp"></jsp:include>
+		</div>
 
 		<div id="content">
 			<div class="result">
 				<form method="get" action="top_club.jsp" id="frm">
-					<h2><%=title %></h2>
+					<h2><%=title%></h2>
 					<ul>
 						<!-- 						<li><button name="club_at_cd" onclick="this.form.submit()"
 								value="">전체</button></li>
@@ -125,22 +127,24 @@
 
 			<jsp:useBean id="dao" class="exam.jdbc.JDBC_clubDAO" />
 			<%
-            ArrayList<ClubVO> gb_list = dao.getTopClub(club_gb_cd, club_at_cd);
-			
-            int rank = 0;
+				ArrayList<ClubVO> gb_list = dao.getTopClub(club_gb_cd, club_at_cd);
+
+				int rank = 0;
 				for (ClubVO vo : gb_list) {
-					rank ++;
+					rank++;
 			%>
 
-			<%String star_state = ""; %>
+			<%
+				String star_state = "";
+			%>
 			<div class="latest">
 				<div class="logo">
-					<span class="num_item"> <%=rank %>
+					<span class="num_item"> <%=rank%>
 					</span> <img class="img" src="image/poster/<%=vo.getIntro_file_nm()%>"
 						onerror="this.src='image/error.png'"></img>
 				</div>
 				<div class="tbl-info">
-					<h3><%=vo.getClub_nm() %></h3>
+					<h3><%=vo.getClub_nm()%></h3>
 					<div class="star">
 						<%
 							if (username == null) {
@@ -166,24 +170,28 @@
 						</button>
 						<%
 							}
-						}
+								}
 						%>
 						<%=dao.getStarCnt(vo.getClub_id())%>
 					</div>
 					<table class="tbl">
 						<tr>
 							<th>회원수</th>
-							<td><%=vo.getCnt() %></td>
+							<td><%=vo.getCnt()%></td>
 							<th>결성년도</th>
-							<%if (vo.getOpen_dt().equals("") ) {
-                        %><td></td>
-							<% } 
-						else{%><td><%=vo.getOpen_dt().substring(0, 4)%>년</td>
-							<%} %>
+							<%
+								if (vo.getOpen_dt().equals("")) {
+							%><td></td>
+							<%
+								} else {
+							%><td><%=vo.getOpen_dt().substring(0, 4)%>년</td>
+							<%
+								}
+							%>
 						</tr>
 						<tr>
 							<th>회장</th>
-							<td><%=vo.getStaff_nm() %></td>
+							<td><%=vo.getStaff_nm()%></td>
 							<th>지도교수</th>
 							<td><%=dao.getProfessor(vo.getClub_id())%></td>
 						</tr>
@@ -219,11 +227,9 @@
 		</div>
 		<hr>
 		<div id="footer" style="position: relative;">
-			<div class="copyright">
-				<address>Copyright 2019. 김정인, 김진섭. All Rights Reserved.</address>
-			</div>
+			<jsp:include page="footer.jsp"></jsp:include>
 		</div>
-
+		<hr>
 	</div>
 	<script>
 		function postPopUp() {

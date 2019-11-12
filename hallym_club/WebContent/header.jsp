@@ -1,8 +1,3 @@
-<%@page import="sun.security.krb5.internal.PAEncTSEnc"%>
-<%@page import="java.net.URLEncoder"%>
-<%-- <%@page import="exam.jdbc.ClubVO"%> --%>
-<%@page import="java.util.ArrayList"%>
-<%-- <%@page import="exam.jdbc.JDBC_clubDAO"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -24,7 +19,6 @@
       }
    %>
 
-	<div id="header">
 		<h1>
 			<a href="index.jsp"><img src="image/logo.gif" alt="한림대학교 동아리"></a>
 		</h1>
@@ -54,7 +48,5 @@
 			<li><a href="board.jsp">공지사항</a></li>
 			<li><a href="jido.jsp">주변음식점</a></li>
 		</ul>
-	</div>
-
 </body>
 </html>

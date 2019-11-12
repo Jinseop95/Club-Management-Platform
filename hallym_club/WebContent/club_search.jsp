@@ -80,7 +80,9 @@
 		}
 	%>
 	<div id="wrap">
-		<jsp:include page="header.jsp"></jsp:include>
+		<div id="header">
+			<jsp:include page="header.jsp"></jsp:include>
+		</div>
 
 		<div class="category">
 			<form method="get" action="club_search.jsp">
@@ -150,14 +152,13 @@
 			</div>
 
 			<%
-			
 				for (ClubVO vo : gb_list) {
 					String star_state = "";
 			%>
 			<!-- onerror="this.src='image/error.png'" -->
 			<div class="latest">
 				<div class="logo">
-					<img class="img" src= "upload/club/<%=vo.getIntro_save_file_nm() %>"></img>
+					<img class="img" src="upload/club/<%=vo.getIntro_save_file_nm()%>"></img>
 				</div>
 				<div class="tbl-info">
 					<h3><%=vo.getClub_nm()%></h3>
@@ -234,7 +235,7 @@
 						<li><input type="submit" value="가입 신청" class="tbl-btn"></li>
 						<li><button type="button" class="tbl-btn">더보기</button></li>
 						<li><button type="button" class="tbl-btn"
-								onclick="window.open('upload/club/<%=vo.getPoster_save_file_nm() %>','new img', 'width=750,height=850')">동아리
+								onclick="window.open('upload/club/<%=vo.getPoster_save_file_nm()%>','new img', 'width=750,height=850')">동아리
 								포스터</button></li>
 					</ul>
 				</form>
@@ -312,10 +313,9 @@
 		</div>
 		<hr>
 		<div id="footer">
-			<div class="copyright">
-				<address>Copyright 2019. 김정인, 김진섭. All Rights Reserved.</address>
-			</div>
+			<jsp:include page="footer.jsp"></jsp:include>
 		</div>
+		<hr>
 
 
 	</div>

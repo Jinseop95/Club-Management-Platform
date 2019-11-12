@@ -14,6 +14,3 @@
 
 .info .ok {float: right; width: 18%; height: 130px; margin: -115px 15% 0 0;}
 .info .ok input{float: left; width: 100%; height: 110px; margin: 0; padding: 0; border: 0; border-radius: 0;  background: #18D; color:white; font-weight: 600; line-height: 90px; text-align: center; cursor: pointer; -webkit-appearance: none;}
-
-#footer {position:absolute; left:0; bottom:0; width:100%; height:8em; background:#666; color:#FFF; z-index:300;}
-#footer address {padding:3em 0 0; font-style:normal;}

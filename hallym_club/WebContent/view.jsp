@@ -53,7 +53,9 @@
 	%>
 
 	<div id="wrap">
-		<jsp:include page="header.jsp"></jsp:include>
+		<div id="header">
+			<jsp:include page="header.jsp"></jsp:include>
+		</div>
 		<div id="content">
 			<div class="info_tit">
 				<h1>공지사항</h1>
@@ -78,12 +80,8 @@
 
 			</div>
 			<hr>
-
-
 			<div id="footer">
-				<div class="copyright">
-					<address>Copyright 2019. 김정인, 김진섭. All Rights Reserved.</address>
-				</div>
+				<jsp:include page="footer.jsp"></jsp:include>
 			</div>
 
 		</div>

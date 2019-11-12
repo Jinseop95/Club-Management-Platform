@@ -57,7 +57,9 @@
 		}
 	%>
 	<div id="wrap">
-		<jsp:include page="header.jsp"></jsp:include>
+		<div id="header">
+			<jsp:include page="header.jsp"></jsp:include>
+		</div>
 		<div id="content">
 			<div class="info_tit">
 				<h1><%=board_title%></h1>
@@ -105,7 +107,8 @@
 					%>
 				</table>
 
-				<a href="write.jsp?club_id=<%=club_id%>&board_cd=<%=board_cd%>" class="write-btn">글쓰기</a>
+				<a href="write.jsp?club_id=<%=club_id%>&board_cd=<%=board_cd%>"
+					class="write-btn">글쓰기</a>
 
 				<div class="page_wrap">
 					<div class="page_nation">
@@ -184,15 +187,10 @@
 		</div>
 		<hr>
 		<div id="footer">
-			<div class="copyright">
-				<address>Copyright 2019. 김정인, 김진섭. All Rights Reserved.</address>
-			</div>
+			<jsp:include page="footer.jsp"></jsp:include>
 		</div>
+		<hr>
 
 	</div>
-
-
-
 </body>
-
 </html>
